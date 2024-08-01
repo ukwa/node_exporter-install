@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# source common functions; exit if missing
+if [[ -f ${UKWACOMMONDIR}/common.sh ]]; then source ${UKWACOMMONDIR}/common.sh; else echo "ERROR: ${UKWACOMMONDIR}/common.sh missing"; exit 1; fi
+
+# globals -----
+NOPREFIX=1
+DEBUG=
+
+NODEEXPORTER='golang-github-prometheus-node-exporter'
+SERVICE='node-exporter'
+#USERHOME=/var/lib/node_exporter/textfile_collector 
+
+
+# functions ----------
+function install_node_exporter {
+	if ! [[ -x $(which ${SERVICE}) ]]; then
+		log INFO "Installing ${NODEEXPORTER}"
+		sudo dnf install ${NODEEXPORTER}
+	fi
+
+	# if node_exporter user not already defined, add
+#	[[ -d ${USERHOME} ]] || sudo mkdir -p ${USERHOME}
+#	test "$(id node_exporter 2> /dev/null)" || {
+#		log INFO "Creating node_exporter user"
+#		sudo useradd --shell /sbin/nologin --home-dir ${USERHOME}  node_exporter
+#	}
+}
+
+# script -------------
+ensure_not_root
+install_node_exporter
+#copy_directory fs
+log_stop
