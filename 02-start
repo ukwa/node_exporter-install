@@ -7,7 +7,7 @@ if [[ -f ${UKWACOMMONDIR}/common.sh ]]; then source ${UKWACOMMONDIR}/common.sh; 
 NOPREFIX=1
 DEBUG=
 
-SERVICE='prometheus-node-exporter'
+SERVICE='node_exporter'
 
 
 # script ----------
